@@ -8,3 +8,4 @@ Cors
 Uuid
 mongoDb
 typeorm
+Typescript
