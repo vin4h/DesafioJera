@@ -1,0 +1,16 @@
+{
+    "type": "mongodb",
+    "url": "mongodb+srv://root:root@cluster0.prdjx.mongodb.net/jera?retryWrites=true&w=majority",
+    "useNewUrlParser": true,
+    "synchronize": true,
+    "useUnifiedTopology": true,
+    "logging": true,
+    "migrations": [
+        "migration/*.js"
+    ],
+    "cli": {
+        "entitiesDir": "entity",
+        "migrationsDir": "migration",
+        "subscribersDir": "subscriber"
+    }
+}
