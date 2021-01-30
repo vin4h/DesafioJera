@@ -9,5 +9,6 @@ Uuid
 mongoDb
 typeorm
 Typescript
-md5
+bcryptjs
 reflect-metadata - typescript por cuasa do decoretion
+JWT
