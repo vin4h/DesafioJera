@@ -14,6 +14,14 @@ interface Request {
 class CreateUserService {
     public async execute({ email, password, name, brithDate }: Request): Promise<User> {
         const userRepository = getCustomRepository(UserRepository);
+
+        const findEmail = await userRepository.verifyExistEmail(email);
+        console.log(findEmail);
+
+        if (findEmail) {
+            throw Error('E-mail já está sendo utilizado');
+        }
+
         const user = userRepository.create({
             email,
             password: md5(password),
