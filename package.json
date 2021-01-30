@@ -1,0 +1,8 @@
+{
+  "name": "DesafioJera",
+  "version": "1.0.0",
+  "description": "Desafio tecnico",
+  "main": "index.js",
+  "author": "Vin4h <viniciu.rezende@gmail.com>",
+  "license": "MIT"
+}
