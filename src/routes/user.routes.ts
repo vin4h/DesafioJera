@@ -20,6 +20,8 @@ userRouter.post('/', async (request, response) => {
             brithDate
         });
 
+        delete user.password;
+
         return response.json(user);
     } catch (error) {
         console.log(error)
