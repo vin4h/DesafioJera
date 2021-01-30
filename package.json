@@ -5,9 +5,17 @@
   "main": "index.js",
   "author": "Vin4h <viniciu.rezende@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mongodb": "^3.6.3",
+    "typeorm": "^0.2.30",
     "uuidv4": "^6.2.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
   }
 }

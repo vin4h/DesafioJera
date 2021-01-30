@@ -6,3 +6,5 @@ Yarn
 Express
 Cors
 Uuid
+mongoDb
+typeorm
