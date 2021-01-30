@@ -4,5 +4,10 @@
   "description": "Desafio tecnico",
   "main": "index.js",
   "author": "Vin4h <viniciu.rezende@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "uuidv4": "^6.2.6"
+  }
 }

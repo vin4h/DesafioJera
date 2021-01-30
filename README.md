@@ -2,3 +2,7 @@
 
 Aplicação Web - NodeJS
 
+Yarn
+Express
+Cors
+Uuid
