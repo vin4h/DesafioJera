@@ -5,12 +5,7 @@
     "synchronize": true,
     "useUnifiedTopology": true,
     "logging": true,
-    "migrations": [
-        "migration/*.js"
-    ],
-    "cli": {
-        "entitiesDir": "entity",
-        "migrationsDir": "migration",
-        "subscribersDir": "subscriber"
-    }
+    "entities": [
+        "./src/models/*.ts"
+    ]
 }
