@@ -15,35 +15,28 @@ var _User = _interopRequireDefault(require("../models/User"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-class FindProfileService {
+class CreateProfileService {
   async execute({
     name,
-    user_id
+    id
   }) {
     const profileRepository = (0, _typeorm.getRepository)(_Profile.default);
     const userRepository = (0, _typeorm.getRepository)(_User.default);
-    const findProfile = await profileRepository.findOne({
-      where: {
-        name
-      },
-      relations: ['user']
-    });
-
-    if (findProfile) {
-      if (findProfile.user_id === user_id) {
-        throw Error("Nome já utilizado");
-      }
-    }
-
     const user = await userRepository.findOne({
       relations: ['profiles'],
       where: {
-        id: user_id
+        id
       }
     });
 
     if (!user) {
       throw Error("Identificação de usuário incorreta");
+    }
+
+    const findProfile = user.profiles.filter(profile => profile.name === name);
+
+    if (findProfile.length > 0) {
+      throw Error("Nome já utilizado");
     }
 
     if (user.profiles.length >= user.max_profile) {
@@ -61,5 +54,5 @@ class FindProfileService {
 
 }
 
-var _default = FindProfileService;
+var _default = CreateProfileService;
 exports.default = _default;

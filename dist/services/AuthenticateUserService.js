@@ -11,6 +11,8 @@ var _bcryptjs = require("bcryptjs");
 
 var _jsonwebtoken = require("jsonwebtoken");
 
+var _auth = _interopRequireDefault(require("../config/auth"));
+
 var _User = _interopRequireDefault(require("../models/User"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -37,10 +39,13 @@ class AuthenticateUserService {
       throw Error('E-mail ou senha incorretos');
     }
 
-    console.log(user.id.toString());
-    const token = (0, _jsonwebtoken.sign)({}, 'c1584e57a1c98d3a8ffd994c92002205', {
+    const {
+      secret,
+      expiresIn
+    } = _auth.default.jwt;
+    const token = (0, _jsonwebtoken.sign)({}, secret, {
       subject: user.id,
-      expiresIn: '1d'
+      expiresIn
     });
     return {
       user,

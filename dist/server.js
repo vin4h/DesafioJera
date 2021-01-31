@@ -17,6 +17,4 @@ const app = (0, _express.default)();
 app.use((0, _cors.default)());
 app.use(_express.default.json());
 app.use(_index.default);
-app.listen(port, () => {
-  console.log(port);
-});
+app.listen(port);
