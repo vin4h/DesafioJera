@@ -12,3 +12,5 @@ Typescript
 bcryptjs
 reflect-metadata - typescript por cuasa do decoretion
 JWT
+
+babel transpilar
