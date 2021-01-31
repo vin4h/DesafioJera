@@ -35,7 +35,7 @@ class AuthenticateUserService {
         console.log(user.id.toString())
 
         const token = sign({}, 'c1584e57a1c98d3a8ffd994c92002205', {
-            subject: user.id.toString(),
+            subject: user.id,
             expiresIn: '1d'
         });
 

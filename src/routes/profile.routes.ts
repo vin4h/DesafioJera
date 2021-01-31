@@ -8,9 +8,14 @@ const profileRouter = Router();
 
 profileRouter.get('/', async (request, response) => {
     try {
+
+        const {user_id} = request.body
+
         const findProfiles = new FindProfileService();
 
-        const profiles = await findProfiles.execute();
+        const profiles = await findProfiles.execute({
+            user_id
+        });
 
         return response.json(profiles);
 
