@@ -18,6 +18,4 @@ app.use(express.json());
 
 app.use(Routes);
 
-app.listen(port, () => {
-    console.log(port);
-});
+app.listen(port);

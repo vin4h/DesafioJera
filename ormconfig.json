@@ -1,17 +1,17 @@
 {
     "type": "mysql",
-    "host": "us-cdbr-east-03.cleardb.com",
+    "host": "localhost",
     "port": 3306,
-    "username": "b25f40f4b6c724",
-    "password": "846c713c",
-    "database": "heroku_706bc845a239a3a",     
+    "username": "root",
+    "password": "root",
+    "database": "desafiojera",     
     "entities": [
-        "./dist/models/*.js"
+        "./src/models/*.ts"
     ],
     "migrations": [
-        "./dist/database/migrations/*js"
+        "./src/database/migrations/*ts"
     ],
     "cli": {
-        "migrationsDir": "./dist/database/migrations"
+        "migrationsDir": "./src/database/migrations"
     }
 }

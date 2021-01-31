@@ -7,7 +7,8 @@
   "license": "MIT",
   "scripts": {
     "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "production": "node ./dist/server.js"
+    "production": "node ./dist/server.js",
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

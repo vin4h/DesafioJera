@@ -7,31 +7,19 @@ import User from '../models/User';
 
 interface Request {
     name: string,
-    user_id: string,
+    id: string,
 }
 
 class FindProfileService {
-    public async execute({ name, user_id }: Request): Promise<Profile> {
+    public async execute({ name, id }: Request): Promise<Profile> {
         const profileRepository = getRepository(Profile);
 
         const userRepository = getRepository(User);
 
-        const findProfile = await profileRepository.findOne({
-            where: { name },
-            relations: ['user']
-        });
-
-        if (findProfile) {
-
-            if (findProfile.user_id === user_id) {
-                throw Error("Nome já utilizado");
-            }
-        }
-
         const user = await userRepository.findOne({
             relations: ['profiles'],
             where: {
-                id: user_id
+                id
             }
         });
 
@@ -39,7 +27,14 @@ class FindProfileService {
             throw Error("Identificação de usuário incorreta");
         }
 
-        if(user.profiles.length >= user.max_profile){
+        const findProfile = user.profiles.filter(profile => profile.name === name);
+
+        if (findProfile.length > 0) {
+            throw Error("Nome já utilizado");
+        }
+
+
+        if (user.profiles.length >= user.max_profile) {
             throw Error("Usuário já atingiu o maximo de 4 perfis")
         }
 
