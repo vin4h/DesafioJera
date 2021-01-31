@@ -10,7 +10,7 @@ interface Request {
     id: string,
 }
 
-class FindProfileService {
+class CreateProfileService {
     public async execute({ name, id }: Request): Promise<Profile> {
         const profileRepository = getRepository(Profile);
 
@@ -51,4 +51,4 @@ class FindProfileService {
     }
 }
 
-export default FindProfileService;
+export default CreateProfileService;
