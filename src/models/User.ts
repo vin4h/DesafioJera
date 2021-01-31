@@ -24,7 +24,11 @@ class User {
     @Column()
     facebook_id?: string
 
+    @Column()
+    max_profile: number
+
     @OneToMany(() => Profile, profile => profile.user)
+    @JoinColumn({ name: 'user_id' })
     profiles: Profile[];
 
     @CreateDateColumn()

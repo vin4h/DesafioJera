@@ -29,6 +29,7 @@ class FindProfileService {
         }
 
         const user = await userRepository.findOne({
+            relations: ['profiles'],
             where: {
                 id: user_id
             }
@@ -36,6 +37,10 @@ class FindProfileService {
 
         if (!user) {
             throw Error("Identificação de usuário incorreta");
+        }
+
+        if(user.profiles.length >= user.max_profile){
+            throw Error("Usuário já atingiu o maximo de 4 perfis")
         }
 
         const profile = profileRepository.create({
