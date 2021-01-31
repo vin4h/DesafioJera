@@ -1,4 +1,4 @@
-import e, { Router } from 'express';
+import { Router } from 'express';
 
 import AuthenticateUserService from '../services/AuthenticateUserService';
 

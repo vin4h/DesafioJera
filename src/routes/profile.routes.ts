@@ -3,13 +3,16 @@ import { Router } from 'express';
 import FindProfileService from '../services/FindProfilesService';
 
 import CreateProfileService from '../services/CreateProfileService';
+import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const profileRouter = Router();
+
+profileRouter.use(ensureAuthenticated);
 
 profileRouter.get('/', async (request, response) => {
     try {
 
-        const {user_id} = request.body
+        const { user_id } = request.body
 
         const findProfiles = new FindProfileService();
 
