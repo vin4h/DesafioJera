@@ -1,5 +1,5 @@
 
-import { Entity, Column, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn } from "typeorm";
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from "typeorm";
 
 import Profile from "./Profile";
 
@@ -33,9 +33,6 @@ class User {
 
     @CreateDateColumn()
     created_at: Date;
-
-    @UpdateDateColumn()
-    updated_at: Date;
 
 }
 

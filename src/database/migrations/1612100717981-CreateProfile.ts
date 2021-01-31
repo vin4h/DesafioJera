@@ -25,18 +25,13 @@ export class CreateProfile1612100717981 implements MigrationInterface {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'
-                    },
-                    {
-                        name: 'updated_at',
-                        type: 'timestamp',
-                        default: 'now()'
                     }
                 ]
             })
         );
 
         await queryRunner.createForeignKey('profiles', new TableForeignKey({
-            name:'ProfileUser',
+            name: 'ProfileUser',
             columnNames: ['user_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'users',
@@ -46,7 +41,7 @@ export class CreateProfile1612100717981 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('profiles','ProfileUser');
+        await queryRunner.dropForeignKey('profiles', 'ProfileUser');
 
         await queryRunner.dropTable('profiles');
     }
