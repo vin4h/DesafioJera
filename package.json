@@ -6,10 +6,6 @@
   "author": "Vin4h <viniciu.rezende@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "babel ./src/ --extensions \".ts\" --out-dir dist",
-    "dev:server": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
-    "start": "ts-node src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "production": "node ./dist/server.js"
   },
   "dependencies": {
