@@ -6,7 +6,7 @@ Yarn
 Express
 Cors
 Uuid
-mongoDb
+Mysql
 typeorm
 Typescript
 bcryptjs

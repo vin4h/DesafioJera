@@ -1,11 +1,17 @@
 {
-    "type": "mongodb",
-    "url": "mongodb+srv://root:root@cluster0.prdjx.mongodb.net/jera?retryWrites=true&w=majority",
-    "useNewUrlParser": true,
-    "synchronize": true,
-    "useUnifiedTopology": true,
-    "logging": true,
+    "type": "mysql",
+    "host": "localhost",
+    "port": 3306,
+    "username": "root",
+    "password": "root",
+    "database": "desafiojera",     
     "entities": [
         "./src/models/*.ts"
-    ]
+    ],
+    "migrations": [
+        "./src/database/migrations/*ts"
+    ],
+    "cli": {
+        "migrationsDir": "./src/database/migrations"
+    }
 }
