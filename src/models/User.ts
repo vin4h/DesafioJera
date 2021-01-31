@@ -1,9 +1,12 @@
-import { Entity, Column, ObjectIdColumn } from "typeorm";
+
+import { Entity, Column, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, JoinColumn } from "typeorm";
+
+import Profile from "./Profile";
 
 @Entity('users')
 class User {
 
-    @ObjectIdColumn()
+    @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column()
@@ -16,8 +19,19 @@ class User {
     name: string;
 
     @Column('date')
-    brithDate: Date;
+    birthday: Date;
 
+    @Column()
+    facebook_id?: string
+
+    @OneToMany(() => Profile, profile => profile.user)
+    profiles: Profile[];
+
+    @CreateDateColumn()
+    created_at: Date;
+
+    @UpdateDateColumn()
+    updated_at: Date;
 
 }
 
