@@ -5,7 +5,7 @@ import User from "./User";
 class WatchedMovies {
 
     @PrimaryGeneratedColumn()
-    id: string;
+    id: number;
 
     @Column()
     title: string;

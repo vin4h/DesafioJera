@@ -9,7 +9,7 @@ export class WatchedMovies1612294160130 implements MigrationInterface {
                 columns: [
                     {
                         name: 'id',
-                        type: 'varchar',
+                        type: 'integer',
                         isPrimary: true,
                     },
                     {

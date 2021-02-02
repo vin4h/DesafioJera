@@ -13,11 +13,11 @@ profileRouter.post('/', async (request, response) => {
 
         const { name } = request.body;
 
-        const { id } = request.user;
+        const { user_id } = request.user;
 
         const profile = await createProfile.execute({
             name,
-            id
+            user_id
         })
 
 

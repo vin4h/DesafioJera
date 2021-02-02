@@ -7,11 +7,11 @@ import User from '../models/User';
 
 interface Request {
     name: string,
-    id: string,
+    user_id: string,
 }
 
 class CreateProfileService {
-    public async execute({ name, id }: Request): Promise<Profile> {
+    public async execute({ name, user_id }: Request): Promise<Profile> {
         const profileRepository = getRepository(Profile);
 
         const userRepository = getRepository(User);
@@ -19,7 +19,7 @@ class CreateProfileService {
         const user = await userRepository.findOne({
             relations: ['profiles'],
             where: {
-                id
+                id: user_id
             }
         });
 
@@ -41,7 +41,7 @@ class CreateProfileService {
         const profile = profileRepository.create({
             id: v4(),
             name,
-            user_id: user.id
+            user_id
         });
 
         user.profiles.push(profile);
