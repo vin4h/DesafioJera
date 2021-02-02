@@ -28,7 +28,6 @@ profileRouter.post('/', async (request, response) => {
       name,
       id
     });
-    delete profile.user.password;
     return response.json(profile);
   } catch (error) {
     return response.status(400).json({

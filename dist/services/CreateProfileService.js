@@ -44,10 +44,11 @@ class CreateProfileService {
     }
 
     const profile = profileRepository.create({
-      user_id: (0, _uuid.v4)(),
+      id: (0, _uuid.v4)(),
       name,
-      user
+      user_id: user.id
     });
+    user.profiles.push(profile);
     await profileRepository.save(profile);
     return profile;
   }
