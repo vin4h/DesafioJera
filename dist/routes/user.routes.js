@@ -39,7 +39,7 @@ userRouter.post('/', async (request, response) => {
     });
   }
 });
-userRouter.post('/findUser', async (request, response) => {
+userRouter.post('/find', async (request, response) => {
   try {
     const findUser = new _FindUserService.default();
     const {
