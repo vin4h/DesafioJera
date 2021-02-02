@@ -10,6 +10,6 @@ const routes = Router();
 routes.use('/users', usersRouter);
 routes.use('/sessions', sessionsRouter);
 routes.use('/profiles', profileRouter);
-routes.use('/watchedMoveis', watchedMoveis);
+routes.use('/watchedmovies', watchedMoveis);
 
 export default routes;

@@ -12,10 +12,10 @@ watchedmovieRouter.get('/', async (request, response) => {
     try {
         const listWatchedMoveis = new ListWatchedMoveis();
 
-        const { id } = request.user;
+        const { user_id } = request.user;
 
         const watchedMoveis = await listWatchedMoveis.execute({
-            id
+            user_id
         })
 
         return response.json(watchedMoveis);
@@ -24,7 +24,7 @@ watchedmovieRouter.get('/', async (request, response) => {
     }
 });
 
-watchedmovieRouter.post('/watchedMovies', async (request, response) => {
+watchedmovieRouter.post('/', async (request, response) => {
     try {
         const createWatchedMoveis = new CreateWatchedMoveis();
 
