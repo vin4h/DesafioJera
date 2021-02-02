@@ -20,7 +20,10 @@ class AuthenticateUserService {
         const usersRepository = getRepository(User);
 
         const user = await usersRepository.findOne({
-            where: { email }
+            relations: ['profiles'],
+            where: {
+                email
+            }
         });
 
         if (!user) {

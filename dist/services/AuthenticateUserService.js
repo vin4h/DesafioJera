@@ -24,6 +24,7 @@ class AuthenticateUserService {
   }) {
     const usersRepository = (0, _typeorm.getRepository)(_User.default);
     const user = await usersRepository.findOne({
+      relations: ['profiles'],
       where: {
         email
       }
