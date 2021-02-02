@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from "typeorm";
 import Profile from "./Profile";
 
-@Entity('watchedmovies')
-class WatchedMovies {
+@Entity('watchlists')
+class Watchlist {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -23,7 +23,6 @@ class WatchedMovies {
     @CreateDateColumn()
     created_at: Date;
 
-
 }
 
-export default WatchedMovies;
+export default Watchlist;
