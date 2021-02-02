@@ -6,11 +6,11 @@ interface Request {
     id: number,
     title: string,
     genre: string,
-    user_id: string
+    profile_id: string
 }
 
 class CreateWatchedMoveis {
-    public async execute({ id, title, genre, user_id }: Request): Promise<WatchedMoveis> {
+    public async execute({ id, title, genre, profile_id }: Request): Promise<WatchedMoveis> {
         const watchedMoveisRepository = getRepository(WatchedMoveis);
 
         const findWatchedMoveis = await watchedMoveisRepository.findOne({
@@ -27,7 +27,7 @@ class CreateWatchedMoveis {
             id,
             title,
             genre,
-            user_id
+            profile_id
         });
 
         await watchedMoveisRepository.save(movie);

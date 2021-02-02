@@ -8,14 +8,14 @@ const watchedmovieRouter = Router();
 
 watchedmovieRouter.use(ensureAuthenticated);
 
-watchedmovieRouter.get('/', async (request, response) => {
+watchedmovieRouter.post('/list', async (request, response) => {
     try {
         const listWatchedMoveis = new ListWatchedMoveis();
 
-        const { user_id } = request.user;
+        const { profile_id } = request.body;
 
         const watchedMoveis = await listWatchedMoveis.execute({
-            user_id
+            profile_id
         })
 
         return response.json(watchedMoveis);
@@ -28,15 +28,13 @@ watchedmovieRouter.post('/', async (request, response) => {
     try {
         const createWatchedMoveis = new CreateWatchedMoveis();
 
-        const { user_id } = request.user;
-
-        const { id, title, genre } = request.body;
+        const { id, title, genre, profile_id } = request.body;
 
         const watchedMoveis = await createWatchedMoveis.execute({
             id,
             title,
             genre,
-            user_id,
+            profile_id,
         })
 
         return response.json(watchedMoveis);
@@ -44,5 +42,6 @@ watchedmovieRouter.post('/', async (request, response) => {
         return response.status(400).json({ error: error.message })
     }
 });
+
 
 export default watchedmovieRouter;

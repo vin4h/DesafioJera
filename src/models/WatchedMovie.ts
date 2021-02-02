@@ -11,7 +11,7 @@ class WatchedMovies {
     title: string;
 
     @Column()
-    user_id: string
+    profile_id: string
 
     @Column()
     genre: string

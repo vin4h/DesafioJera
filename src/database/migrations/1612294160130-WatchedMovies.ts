@@ -17,7 +17,7 @@ export class WatchedMovies1612294160130 implements MigrationInterface {
                         type: 'varchar',
                     },
                     {
-                        name: 'user_id',
+                        name: 'profile_id',
                         type: 'varchar'
                     },
                     {
@@ -33,11 +33,11 @@ export class WatchedMovies1612294160130 implements MigrationInterface {
             })
         );
 
-        await queryRunner.createForeignKey('profiles', new TableForeignKey({
-            name: 'WatchedMoveisUser',
-            columnNames: ['user_id'],
+        await queryRunner.createForeignKey('watchedmovies', new TableForeignKey({
+            name: 'WatchedMoveisprofile',
+            columnNames: ['profile_id'],
             referencedColumnNames: ['id'],
-            referencedTableName: 'users',
+            referencedTableName: 'profiles',
             onDelete: 'CASCADE',
             onUpdate: 'CASCADE'
         }));
@@ -45,7 +45,7 @@ export class WatchedMovies1612294160130 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('watchedmovies', 'WatchedMoveisUser');
+        await queryRunner.dropForeignKey('watchedmovies', 'WatchedMoveisprofile');
 
         await queryRunner.dropTable('watchedmovies');
     }
