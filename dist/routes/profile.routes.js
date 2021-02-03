@@ -22,11 +22,11 @@ profileRouter.post('/', async (request, response) => {
       name
     } = request.body;
     const {
-      id
+      user_id
     } = request.user;
     const profile = await createProfile.execute({
       name,
-      id
+      user_id
     });
     return response.json(profile);
   } catch (error) {

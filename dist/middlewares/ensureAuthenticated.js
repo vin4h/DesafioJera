@@ -26,7 +26,7 @@ function ensureAuthenticated(request, response, next) {
       sub
     } = decoded;
     request.user = {
-      id: sub
+      user_id: sub
     };
     return next();
   } catch (error) {

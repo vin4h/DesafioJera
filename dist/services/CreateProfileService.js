@@ -18,14 +18,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 class CreateProfileService {
   async execute({
     name,
-    id
+    user_id
   }) {
     const profileRepository = (0, _typeorm.getRepository)(_Profile.default);
     const userRepository = (0, _typeorm.getRepository)(_User.default);
     const user = await userRepository.findOne({
       relations: ['profiles'],
       where: {
-        id
+        id: user_id
       }
     });
 
@@ -46,7 +46,7 @@ class CreateProfileService {
     const profile = profileRepository.create({
       id: (0, _uuid.v4)(),
       name,
-      user_id: user.id
+      user_id
     });
     user.profiles.push(profile);
     await profileRepository.save(profile);
