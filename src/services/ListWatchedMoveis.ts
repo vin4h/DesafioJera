@@ -1,14 +1,15 @@
 import { getRepository } from 'typeorm';
 
-import WatchedMoveis from '../models/WatchedMovie';
+import WatchedMovies from '../models/WatchedMovie';
 
 interface Request {
     profile_id: string
 }
 
+
 class ListWatchedMoveis {
-    public async execute({ profile_id }: Request): Promise<WatchedMoveis[]> {
-        const watchedMoveisRepository = getRepository(WatchedMoveis);
+    public async execute({ profile_id }: Request): Promise<WatchedMovies[]> {
+        const watchedMoveisRepository = getRepository(WatchedMovies);
 
         const watchedMoveis = await watchedMoveisRepository.find({
             where: {
@@ -16,7 +17,7 @@ class ListWatchedMoveis {
             }
         })
 
-        return watchedMoveis;
+        return watchedMoveis
 
     }
 }

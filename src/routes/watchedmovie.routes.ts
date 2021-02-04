@@ -13,7 +13,7 @@ watchedmovieRouter.post('/list', async (request, response) => {
         const listWatchedMoveis = new ListWatchedMoveis();
 
         const { profile_id } = request.body;
-
+        
         const watchedMoveis = await listWatchedMoveis.execute({
             profile_id
         })

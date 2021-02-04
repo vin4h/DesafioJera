@@ -15,6 +15,7 @@ class CreateWatchedMoveis {
 
         const findWatchedMoveis = await watchedMoveisRepository.findOne({
             where: {
+                profile_id,
                 id
             }
         });
