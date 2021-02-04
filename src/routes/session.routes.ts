@@ -6,14 +6,19 @@ const sessionsRouter = Router();
 
 
 sessionsRouter.post('/', async (request, response) => {
-    try {
-        const { email, password } = request.body;
+        try {
+            const authHeader = request.headers.authorization;
+        
+        if (!authHeader) {
+            throw new Error('Usuário sem autenticação');
+        }
+
+        const [, headerToken] = authHeader.split(' ');
 
         const authenticateUser = new AuthenticateUserService();
 
         const { user, token } = await authenticateUser.execute({
-            email,
-            password
+            headerToken
         });
 
         delete user.password;

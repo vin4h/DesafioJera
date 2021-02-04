@@ -1,53 +1,57 @@
 import { getRepository } from 'typeorm';
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import authConfig from '../config/auth';
 
 import User from '../models/User';
 
 interface Request {
-    email: string;
-    password: string;
+    headerToken: string;
 }
 
 interface Response {
-    user: User;
-    token: string;
+    token: string,
+    user: User
+}
+
+interface TokenPayload {
+    iat: number,
+    exp: number,
+    sub: string
 }
 
 class AuthenticateUserService {
-    public async execute({ email, password }: Request): Promise<Response> {
+    public async execute({ headerToken }: Request): Promise<Response> {
         const usersRepository = getRepository(User);
 
-        const user = await usersRepository.findOne({
-            relations: ['profiles'],
-            where: {
-                email
+
+
+        try {
+            const decoded = verify(headerToken, authConfig.jwt.secret);
+
+            const { sub } = decoded as TokenPayload;
+
+            const user = await usersRepository.findOne({
+                relations: ['profiles'],
+                where: {
+                    id: sub
+                }
+            });
+
+            if (!user) {
+                throw Error('Usuário incorreto');
             }
-        });
 
-        if (!user) {
-            throw Error('E-mail ou senha incorretos');
+            const token = headerToken;
+
+            return {
+                token,
+                user
+            }
+
+        } catch (error) {
+            throw new Error('JWT invalido')
         }
-
-        const passwordMatched = await compare(password, user.password);
-
-        if (!passwordMatched) {
-            throw Error('E-mail ou senha incorretos');
-        }
-
-        const { secret, expiresIn } = authConfig.jwt;
-
-        const token = sign({}, secret, {
-            subject: user.id,
-            expiresIn
-        });
-
-        return {
-            user,
-            token,
-        }
-
     }
 }
 
