@@ -1,37 +1,58 @@
 import { getRepository } from 'typeorm';
 
-import WatchedMoveis from '../models/WatchedMovie';
+import Movies from '../models/Movies';
 
 interface Request {
     id: number,
     title: string,
     genre: string,
-    profile_id: string
+    genre_id: number,
+    profile_id: string,
+    watched: boolean
 }
 
 class CreateWatchedMoveis {
-    public async execute({ id, title, genre, profile_id }: Request): Promise<WatchedMoveis> {
-        const watchedMoveisRepository = getRepository(WatchedMoveis);
+    public async execute({ id, title, genre, genre_id, profile_id, watched }: Request): Promise<Movies> {
+        const moviesRepository = getRepository(Movies);
 
-        const findWatchedMoveis = await watchedMoveisRepository.findOne({
+        const findMovies = await moviesRepository.findOne({
             where: {
                 profile_id,
                 id
             }
         });
 
-        if(findWatchedMoveis){
-            throw new Error("Filme já está na lista");
+        if(findMovies){
+            if(findMovies.watched){
+                throw new Error("Filme já está na lista de assistidos");
+            }else{
+                const updateMovie = moviesRepository.create({
+                    id: findMovies.id,
+                    title: findMovies.title,
+                    genre: findMovies.genre,
+                    genre_id: findMovies.genre_id,
+                    profile_id: findMovies.profile_id,
+                    watched,
+                    to_watch: findMovies.to_watch ? findMovies.to_watch : false
+                });
+
+                await moviesRepository.save(updateMovie);
+                
+                return updateMovie
+            }
         }
 
-        const movie = watchedMoveisRepository.create({
+        const movie = moviesRepository.create({
             id,
             title,
             genre,
-            profile_id
+            genre_id,
+            profile_id,
+            watched,
+            to_watch: false
         });
 
-        await watchedMoveisRepository.save(movie);
+        await moviesRepository.save(movie);
 
         return movie;
 

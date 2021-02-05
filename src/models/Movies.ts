@@ -1,8 +1,8 @@
 import { Entity, Column, ManyToOne, PrimaryGeneratedColumn, CreateDateColumn, JoinColumn } from "typeorm";
 import Profile from "./Profile";
 
-@Entity('watchedmovies')
-class WatchedMovies {
+@Entity('movies')
+class Movies {
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -15,6 +15,15 @@ class WatchedMovies {
 
     @Column()
     genre: string
+    
+    @Column()
+    genre_id: number
+
+    @Column()
+    watched: boolean
+    
+    @Column()
+    to_watch: boolean
 
     @ManyToOne(() => Profile)
     @JoinColumn({ name: 'profile_id' })
@@ -26,4 +35,4 @@ class WatchedMovies {
 
 }
 
-export default WatchedMovies;
+export default Movies;

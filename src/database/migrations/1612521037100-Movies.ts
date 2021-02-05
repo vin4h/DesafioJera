@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class WatchedMovies1612294160130 implements MigrationInterface {
+export class Movies1612521037100 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'watchedmovies',
+                name: 'movies',
                 columns: [
                     {
                         name: 'id',
@@ -25,16 +25,27 @@ export class WatchedMovies1612294160130 implements MigrationInterface {
                         type: 'varchar'
                     },
                     {
+                        name: 'genre_id',
+                        type: 'integer'
+                    },
+                    {
                         name: 'created_at',
                         type: 'timestamp',
                         default: 'now()'
+                    },
+                    {
+                        name: 'watched',
+                        type: 'boolean'
+                    },
+                    {
+                        name: 'to_watch',
+                        type: 'boolean'
                     }
                 ]
             })
         );
-
-        await queryRunner.createForeignKey('watchedmovies', new TableForeignKey({
-            name: 'WatchedMoveisprofile',
+        await queryRunner.createForeignKey('movies', new TableForeignKey({
+            name: 'moviesProfile',
             columnNames: ['profile_id'],
             referencedColumnNames: ['id'],
             referencedTableName: 'profiles',
@@ -44,10 +55,11 @@ export class WatchedMovies1612294160130 implements MigrationInterface {
 
     }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropForeignKey('watchedmovies', 'WatchedMoveisprofile');
 
-        await queryRunner.dropTable('watchedmovies');
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropForeignKey('movies', 'moviesProfile');
+
+        await queryRunner.dropTable('movies');
     }
 
 }

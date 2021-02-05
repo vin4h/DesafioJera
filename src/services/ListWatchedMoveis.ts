@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 
-import WatchedMovies from '../models/WatchedMovie';
+import Movies from '../models/Movies';
 
 interface Request {
     profile_id: string
@@ -8,12 +8,13 @@ interface Request {
 
 
 class ListWatchedMoveis {
-    public async execute({ profile_id }: Request): Promise<WatchedMovies[]> {
-        const watchedMoveisRepository = getRepository(WatchedMovies);
+    public async execute({ profile_id }: Request): Promise<Movies[]> {
+        const moviesRepository = getRepository(Movies);
 
-        const watchedMoveis = await watchedMoveisRepository.find({
+        const watchedMoveis = await moviesRepository.find({
             where: {
-                profile_id
+                profile_id,
+                watched: true
             }
         })
 

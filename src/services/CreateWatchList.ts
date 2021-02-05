@@ -1,36 +1,58 @@
 import { getRepository } from 'typeorm';
 
-import Watchlist from '../models/Watchlist';
+import Movies from '../models/Movies';
 
 interface Request {
     id: number,
     title: string,
     genre: string,
+    genre_id: number,
     profile_id: string
+    to_watch: boolean
 }
 
 class CreateWatchList {
-    public async execute({ id, title, genre, profile_id }: Request): Promise<Watchlist> {
-        const watchlistRepository = getRepository(Watchlist);
+    public async execute({ id, title, genre, genre_id, profile_id, to_watch }: Request): Promise<Movies> {
+        const moviesRepository = getRepository(Movies);
 
-        const findWatchedMoveis = await watchlistRepository.findOne({
+        const findMovies = await moviesRepository.findOne({
             where: {
-                id
+                id,
+                profile_id,
             }
         });
 
-        if(findWatchedMoveis){
-            throw new Error("Filme já está na lista");
+        if (findMovies) {
+            if (findMovies.to_watch) {
+                throw new Error("Filme já está na lista para assistir");
+            } else {
+                const updateMovie = moviesRepository.create({
+                    id: findMovies.id,
+                    title: findMovies.title,
+                    genre: findMovies.genre,
+                    genre_id: findMovies.genre_id,
+                    profile_id: findMovies.profile_id,
+                    watched: findMovies.watched ? findMovies.watched : false,
+                    to_watch
+                });
+
+                await moviesRepository.save(updateMovie);
+                
+                return updateMovie
+            }
         }
 
-        const movie = watchlistRepository.create({
+        const movie = moviesRepository.create({
             id,
             title,
             genre,
-            profile_id
+            genre_id,
+            profile_id,
+            to_watch,
+            watched: false
         });
 
-        await watchlistRepository.save(movie);
+        await moviesRepository.save(movie)
 
         return movie;
 

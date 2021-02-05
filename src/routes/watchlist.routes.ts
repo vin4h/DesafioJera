@@ -28,13 +28,15 @@ watchListRouter.post('/', async (request, response) => {
     try {
         const createWatchlist = new CreateWatchList();
 
-        const { id, title, genre, profile_id } = request.body;
+        const { id, title, genre, genre_id, profile_id, to_watch } = request.body;
 
         const watchList = await createWatchlist.execute({
             id,
             title,
             genre,
+            genre_id,
             profile_id,
+            to_watch
         })
 
         return response.json(watchList);
