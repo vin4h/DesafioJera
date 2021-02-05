@@ -1,24 +1,16 @@
 import { Router } from 'express';
-
-import AuthenticateUserService from '../services/AuthenticateUserService';
+import AuthenticationController from '../controller/AuthenticationController';
 
 const sessionsRouter = Router();
 
+const authController = new AuthenticationController();
 
 sessionsRouter.post('/', async (request, response) => {
-        try {
-            const authHeader = request.headers.authorization;
-        
-        if (!authHeader) {
-            throw new Error('Usuário sem autenticação');
-        }
+    try {
+        const authHeader = request.headers.authorization;
 
-        const [, headerToken] = authHeader.split(' ');
-
-        const authenticateUser = new AuthenticateUserService();
-
-        const { user, token } = await authenticateUser.execute({
-            headerToken
+        const { user, token } = await authController.session({
+            authHeader
         });
 
         delete user.password;

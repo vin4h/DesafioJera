@@ -35,8 +35,6 @@ class CreateUserService {
             }
         }
 
-        console.log(facebook_id)
-
         const hashedPassword = await hash(password, 8);
 
         const user = userRepository.create({

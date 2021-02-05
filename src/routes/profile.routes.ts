@@ -1,21 +1,21 @@
 import { Router } from 'express';
-
-import CreateProfileService from '../services/CreateProfileService';
+import ProfileController from '../controller/ProfileController';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const profileRouter = Router();
 
 profileRouter.use(ensureAuthenticated);
 
+const profileController = new ProfileController();
+
 profileRouter.post('/', async (request, response) => {
     try {
-        const createProfile = new CreateProfileService();
 
         const { name } = request.body;
 
         const { user_id } = request.user;
 
-        const profile = await createProfile.execute({
+        const profile = await profileController.create({
             name,
             user_id
         })

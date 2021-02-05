@@ -1,17 +1,15 @@
 import { Router } from 'express';
-
-import SignInService from '../services/SignInService';
+import AuthenticationController from '../controller/AuthenticationController'
 
 const signInRouter = Router();
 
+const authController = new AuthenticationController();
 
 signInRouter.post('/', async (request, response) => {
     try {
-        const createUser = new SignInService();
-
         const { email, password } = request.body;
 
-        const { user, token } = await createUser.execute({
+        const { user, token } = await authController.signIn({
             email,
             password
         });

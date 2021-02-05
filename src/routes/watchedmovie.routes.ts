@@ -1,20 +1,18 @@
 import { Router } from 'express';
-
-import ListWatchedMoveis from '../services/ListWatchedMoveis';
-import CreateWatchedMoveis from '../services/CreateWatchedMoveis';
+import MovieController from '../controller/MovieController';
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const watchedmovieRouter = Router();
 
 watchedmovieRouter.use(ensureAuthenticated);
 
+const movieController = new MovieController();
+
 watchedmovieRouter.post('/list', async (request, response) => {
     try {
-        const listWatchedMoveis = new ListWatchedMoveis();
-
         const { profile_id } = request.body;
-        
-        const watchedMoveis = await listWatchedMoveis.execute({
+
+        const watchedMoveis = await movieController.listWatched({
             profile_id
         })
 
@@ -26,11 +24,9 @@ watchedmovieRouter.post('/list', async (request, response) => {
 
 watchedmovieRouter.post('/', async (request, response) => {
     try {
-        const createWatchedMoveis = new CreateWatchedMoveis();
-
         const { id, title, genre_ids, profile_id, watched } = request.body;
 
-        const watchedMoveis = await createWatchedMoveis.execute({
+        const watchedMoveis = await movieController.createWatched({
             id,
             title,
             genre_ids,

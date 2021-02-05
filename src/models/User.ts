@@ -3,6 +3,14 @@ import { Entity, Column, OneToMany, PrimaryGeneratedColumn, CreateDateColumn, Jo
 
 import Profile from "./Profile";
 
+interface ConstructorUser {
+    email: string,
+    password: string,
+    name: string,
+    birthday: Date,
+    facebook_id?: string,
+}
+
 @Entity('users')
 class User {
 

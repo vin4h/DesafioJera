@@ -1,20 +1,20 @@
 import { Router } from 'express';
+import MovieController from '../controller/MovieController';
 
-import ListWatchList from '../services/ListWatchList';
-import CreateWatchList from '../services/CreateWatchList';
+
 import ensureAuthenticated from '../middlewares/ensureAuthenticated';
 
 const watchListRouter = Router();
 
 watchListRouter.use(ensureAuthenticated);
 
+const movieController = new MovieController();
+
 watchListRouter.post('/list', async (request, response) => {
     try {
-        const watchList = new ListWatchList();
-
         const { profile_id } = request.body;
 
-        const watcheList = await watchList.execute({
+        const watcheList = await movieController.watchList({
             profile_id
         })
 
@@ -26,11 +26,10 @@ watchListRouter.post('/list', async (request, response) => {
 
 watchListRouter.post('/', async (request, response) => {
     try {
-        const createWatchlist = new CreateWatchList();
 
         const { id, title, genre_ids, profile_id, to_watch } = request.body;
 
-        const watchList = await createWatchlist.execute({
+        const watchList = await movieController.createWatch({
             id,
             title,
             genre_ids,

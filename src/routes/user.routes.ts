@@ -1,18 +1,16 @@
 import { Router } from 'express';
 
-import CreateUserService from '../services/CreateUserService';
-import FindUserService from '../services/FindUserService';
+import UserController from '../controller/UserController'
 
 const userRouter = Router();
 
+const userController = new UserController();
 
 userRouter.post('/', async (request, response) => {
     try {
-        const createUser = new CreateUserService();
-
         const { email, password, name, birthday, facebook_id } = request.body;
 
-        const user = await createUser.execute({
+        const user = await userController.create({
             email,
             password,
             name,
@@ -20,30 +18,10 @@ userRouter.post('/', async (request, response) => {
             facebook_id
         });
 
-        delete user.password;
-
         return response.json(user);
     } catch (error) {
         return response.status(400).json({ error: error.message })
     }
 });
-
-userRouter.post('/find', async (request, response) => {
-    try {
-        const findUser = new FindUserService();
-
-        const { id } = request.body;
-
-        const user = await findUser.execute({
-            id
-        });
-
-        delete user.password;
-
-        return response.json(user);
-    } catch (error) {
-        return response.status(400).json({ error: error.message });
-    }
-})
 
 export default userRouter;
