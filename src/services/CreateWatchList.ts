@@ -5,14 +5,13 @@ import Movies from '../models/Movies';
 interface Request {
     id: number,
     title: string,
-    genre: string,
-    genre_id: number,
+    genre_ids: Object,
     profile_id: string
     to_watch: boolean
 }
 
 class CreateWatchList {
-    public async execute({ id, title, genre, genre_id, profile_id, to_watch }: Request): Promise<Movies> {
+    public async execute({ id, title, genre_ids, profile_id, to_watch }: Request): Promise<Movies> {
         const moviesRepository = getRepository(Movies);
 
         const findMovies = await moviesRepository.findOne({
@@ -29,8 +28,7 @@ class CreateWatchList {
                 const updateMovie = moviesRepository.create({
                     id: findMovies.id,
                     title: findMovies.title,
-                    genre: findMovies.genre,
-                    genre_id: findMovies.genre_id,
+                    genre_ids: findMovies.genre_ids,
                     profile_id: findMovies.profile_id,
                     watched: findMovies.watched ? findMovies.watched : false,
                     to_watch
@@ -45,8 +43,7 @@ class CreateWatchList {
         const movie = moviesRepository.create({
             id,
             title,
-            genre,
-            genre_id,
+            genre_ids,
             profile_id,
             to_watch,
             watched: false

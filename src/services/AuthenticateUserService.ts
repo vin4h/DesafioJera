@@ -24,8 +24,6 @@ class AuthenticateUserService {
     public async execute({ headerToken }: Request): Promise<Response> {
         const usersRepository = getRepository(User);
 
-
-
         try {
             const decoded = verify(headerToken, authConfig.jwt.secret);
 

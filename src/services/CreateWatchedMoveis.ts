@@ -1,3 +1,4 @@
+import { json } from 'express';
 import { getRepository } from 'typeorm';
 
 import Movies from '../models/Movies';
@@ -5,14 +6,13 @@ import Movies from '../models/Movies';
 interface Request {
     id: number,
     title: string,
-    genre: string,
-    genre_id: number,
-    profile_id: string,
+    genre_ids: Object,
     watched: boolean
+    profile_id: string
 }
 
 class CreateWatchedMoveis {
-    public async execute({ id, title, genre, genre_id, profile_id, watched }: Request): Promise<Movies> {
+    public async execute({ id, title, genre_ids, profile_id, watched }: Request): Promise<Movies> {
         const moviesRepository = getRepository(Movies);
 
         const findMovies = await moviesRepository.findOne({
@@ -29,9 +29,7 @@ class CreateWatchedMoveis {
                 const updateMovie = moviesRepository.create({
                     id: findMovies.id,
                     title: findMovies.title,
-                    genre: findMovies.genre,
-                    genre_id: findMovies.genre_id,
-                    profile_id: findMovies.profile_id,
+                    genre_ids: findMovies.genre_ids,
                     watched,
                     to_watch: findMovies.to_watch ? findMovies.to_watch : false
                 });
@@ -45,8 +43,7 @@ class CreateWatchedMoveis {
         const movie = moviesRepository.create({
             id,
             title,
-            genre,
-            genre_id,
+            genre_ids,
             profile_id,
             watched,
             to_watch: false

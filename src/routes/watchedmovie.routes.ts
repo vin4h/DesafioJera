@@ -28,13 +28,12 @@ watchedmovieRouter.post('/', async (request, response) => {
     try {
         const createWatchedMoveis = new CreateWatchedMoveis();
 
-        const { id, title, genre, genre_id, profile_id, watched } = request.body;
+        const { id, title, genre_ids, profile_id, watched } = request.body;
 
         const watchedMoveis = await createWatchedMoveis.execute({
             id,
             title,
-            genre,
-            genre_id,
+            genre_ids,
             profile_id,
             watched
         })
