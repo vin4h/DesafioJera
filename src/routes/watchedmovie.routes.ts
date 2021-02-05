@@ -44,5 +44,4 @@ watchedmovieRouter.post('/', async (request, response) => {
     }
 });
 
-
 export default watchedmovieRouter;

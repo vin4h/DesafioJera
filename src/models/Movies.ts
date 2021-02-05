@@ -14,7 +14,7 @@ class Movies {
     profile_id: string
     
     @Column('simple-json')
-    genre_ids: {}
+    genre_ids: Number[]
 
     @Column()
     watched: boolean

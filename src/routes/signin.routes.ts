@@ -2,10 +2,10 @@ import { Router } from 'express';
 
 import SignInService from '../services/SignInService';
 
-const signinRouter = Router();
+const signInRouter = Router();
 
 
-signinRouter.post('/', async (request, response) => {
+signInRouter.post('/', async (request, response) => {
     try {
         const createUser = new SignInService();
 
@@ -24,4 +24,4 @@ signinRouter.post('/', async (request, response) => {
     }
 });
 
-export default signinRouter;
+export default signInRouter;
