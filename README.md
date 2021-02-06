@@ -4,6 +4,7 @@
 
 ---
 ## Informações adicionais
+### <p style="color:red">Lembrando que para utilizar o projeto deve ter o Mysql, NodeJS e Yarn na sua máquina</p>
 
 #### Após clone do projeto
 #### digite no terminal o seguinte comando
@@ -12,16 +13,16 @@
 
 ### Mysql
 #### Banco de dados relacional podendo ser usado a partir da versão 5.7 pois existe um campo JSON e somente a partir desta versão foi aceita.
+#### Criar uma database com nome <b>desafiojera</b>
+#### mais informações  arquivo ormconfig.json tem as config da base de dados.
 
+---
 
-### Para rodar o projeto use o seguinte comando
-### para inserir as migrations no banco de dados
+### Para rodar as migrations (tabelas do banco)
     typeorm migration:run
 
 ### Para rodar o servidor
     dev:server
-
-### Lembrando que para utilizar o projeto deve ter o Mysql, NodeJS e Yarn na sua máquina
 
 ---
 

@@ -7,24 +7,20 @@ exports.default = void 0;
 
 var _express = require("express");
 
-var _AuthenticateUserService = _interopRequireDefault(require("../services/AuthenticateUserService"));
+var _AuthenticationController = _interopRequireDefault(require("../controller/AuthenticationController"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const sessionsRouter = (0, _express.Router)();
+const authController = new _AuthenticationController.default();
 sessionsRouter.post('/', async (request, response) => {
   try {
-    const {
-      email,
-      password
-    } = request.body;
-    const authenticateUser = new _AuthenticateUserService.default();
+    const authHeader = request.headers.authorization;
     const {
       user,
       token
-    } = await authenticateUser.execute({
-      email,
-      password
+    } = await authController.session({
+      authHeader
     });
     delete user.password;
     return response.json({

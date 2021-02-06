@@ -7,8 +7,6 @@ exports.default = void 0;
 
 var _typeorm = require("typeorm");
 
-var _bcryptjs = require("bcryptjs");
-
 var _jsonwebtoken = require("jsonwebtoken");
 
 var _auth = _interopRequireDefault(require("../config/auth"));
@@ -19,39 +17,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 class AuthenticateUserService {
   async execute({
-    email,
-    password
+    headerToken
   }) {
     const usersRepository = (0, _typeorm.getRepository)(_User.default);
-    const user = await usersRepository.findOne({
-      relations: ['profiles'],
-      where: {
-        email
+
+    try {
+      const decoded = (0, _jsonwebtoken.verify)(headerToken, _auth.default.jwt.secret);
+      const {
+        sub
+      } = decoded;
+      const user = await usersRepository.findOne({
+        relations: ['profiles'],
+        where: {
+          id: sub
+        }
+      });
+
+      if (!user) {
+        throw Error('Usuário incorreto');
       }
-    });
 
-    if (!user) {
-      throw Error('E-mail ou senha incorretos');
+      const token = headerToken;
+      return {
+        token,
+        user
+      };
+    } catch (error) {
+      throw new Error('JWT invalido');
     }
-
-    const passwordMatched = await (0, _bcryptjs.compare)(password, user.password);
-
-    if (!passwordMatched) {
-      throw Error('E-mail ou senha incorretos');
-    }
-
-    const {
-      secret,
-      expiresIn
-    } = _auth.default.jwt;
-    const token = (0, _jsonwebtoken.sign)({}, secret, {
-      subject: user.id,
-      expiresIn
-    });
-    return {
-      user,
-      token
-    };
   }
 
 }

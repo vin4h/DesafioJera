@@ -7,16 +7,14 @@ exports.default = void 0;
 
 var _express = require("express");
 
-var _CreateUserService = _interopRequireDefault(require("../services/CreateUserService"));
-
-var _FindUserService = _interopRequireDefault(require("../services/FindUserService"));
+var _UserController = _interopRequireDefault(require("../controller/UserController"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const userRouter = (0, _express.Router)();
+const userController = new _UserController.default();
 userRouter.post('/', async (request, response) => {
   try {
-    const createUser = new _CreateUserService.default();
     const {
       email,
       password,
@@ -24,31 +22,13 @@ userRouter.post('/', async (request, response) => {
       birthday,
       facebook_id
     } = request.body;
-    const user = await createUser.execute({
+    const user = await userController.create({
       email,
       password,
       name,
       birthday,
       facebook_id
     });
-    delete user.password;
-    return response.json(user);
-  } catch (error) {
-    return response.status(400).json({
-      error: error.message
-    });
-  }
-});
-userRouter.post('/find', async (request, response) => {
-  try {
-    const findUser = new _FindUserService.default();
-    const {
-      id
-    } = request.body;
-    const user = await findUser.execute({
-      id
-    });
-    delete user.password;
     return response.json(user);
   } catch (error) {
     return response.status(400).json({

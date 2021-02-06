@@ -7,7 +7,7 @@ exports.default = void 0;
 
 var _express = require("express");
 
-var _CreateProfileService = _interopRequireDefault(require("../services/CreateProfileService"));
+var _ProfileController = _interopRequireDefault(require("../controller/ProfileController"));
 
 var _ensureAuthenticated = _interopRequireDefault(require("../middlewares/ensureAuthenticated"));
 
@@ -15,16 +15,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 const profileRouter = (0, _express.Router)();
 profileRouter.use(_ensureAuthenticated.default);
+const profileController = new _ProfileController.default();
 profileRouter.post('/', async (request, response) => {
   try {
-    const createProfile = new _CreateProfileService.default();
     const {
       name
     } = request.body;
     const {
       user_id
     } = request.user;
-    const profile = await createProfile.execute({
+    const profile = await profileController.create({
       name,
       user_id
     });

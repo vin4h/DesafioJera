@@ -46,7 +46,6 @@ class CreateUserService {
       }
     }
 
-    console.log(facebook_id);
     const hashedPassword = await (0, _bcryptjs.hash)(password, 8);
     const user = userRepository.create({
       id: (0, _uuid.v4)(),
