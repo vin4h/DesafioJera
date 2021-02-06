@@ -10,6 +10,10 @@
 #### irá baixar todas as dependencias do projeto.
     yarn
 
+### Mysql
+#### Banco de dados relacional podendo ser usado a partir da versão 5.7 pois existe um campo JSON e somente a partir desta versão foi aceita.
+
+
 ### Para rodar o projeto use o seguinte comando
 ### para inserir as migrations no banco de dados
     typeorm migration:run
